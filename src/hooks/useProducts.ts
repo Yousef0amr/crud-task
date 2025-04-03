@@ -1,5 +1,5 @@
 import { Product } from "@/app/dashboard/products/products-columns";
-import { useQuery, useMutation, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import { useQuery, useMutation, UseQueryResult } from "@tanstack/react-query";
 import api from "@/lib/axiosConfig";
 import { useProductStore } from "@/store/product-store";
 import { ProductFormValues } from "@/app/dashboard/products/product-form";
@@ -17,7 +17,7 @@ export const useProducts = (): UseQueryResult<Product[], Error> => {
 };
 
 export const useAddProduct = () => {
-    const queryClient = useQueryClient();
+
     const { addProduct } = useProductStore()
     return useMutation({
         mutationFn: async (newProduct: Partial<ProductFormValues>) => {
@@ -38,7 +38,7 @@ export const useAddProduct = () => {
 
 
 export const useUpdateProduct = () => {
-    const queryClient = useQueryClient();
+
     const { updateProduct } = useProductStore()
 
     return useMutation({
@@ -58,7 +58,7 @@ export const useUpdateProduct = () => {
 
 
 export const useDeleteProduct = () => {
-    const queryClient = useQueryClient();
+
     const { removeProduct } = useProductStore()
     return useMutation({
         mutationFn: async (productId: string) => {
