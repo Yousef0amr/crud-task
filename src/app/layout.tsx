@@ -33,7 +33,7 @@ export default function RootLayout({
         <Toaster position="bottom-center" />
         <QueryProvider >
           <NextAuthProvider>
-            <ThemeProvider attribute="class" defaultTheme="dark" themes={["light", "dark"]} enableSystem disableTransitionOnChange >
+            <ThemeProvider attribute="class" defaultTheme="light" themes={["light", "dark"]} enableSystem disableTransitionOnChange >
               {children}
             </ThemeProvider>
           </NextAuthProvider>
