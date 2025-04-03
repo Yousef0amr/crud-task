@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 
 const Products = () => {
-    const { data, error, isLoading, isError } = useProducts();
+    const { data } = useProducts();
     const addProduct = useAddProduct();
     const updateProduct = useUpdateProduct();
     const deleteProduct = useDeleteProduct();
@@ -27,7 +27,6 @@ const Products = () => {
     });
 
 
-    if (!isLoading) console.log(data);
 
     const handleClose = () => {
         setOpen({
