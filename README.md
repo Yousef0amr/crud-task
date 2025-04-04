@@ -1,37 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Dashboard with Authentication & CRUD Operations
 
-## Getting Started
 
-First, run the development server:
+- A **dashboard** for managing products
+- **Authentication** with NextAuth.js (JWT-based login)
+- **CRUD operations** for product management
+- **ShadCN UI components** for styling
+- **React Table** for sorting & filtering
+
+## 🚀 Getting Started
+
+
+### 2️⃣ Install Dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install  # or yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4️⃣ Run the Development Server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev  # or yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project uses **NextAuth.js** for authentication with JWT.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Users must log in to access the dashboard.
+- Session management is handled using **access tokens & refresh tokens**.
+- 
+---
 
-## Deploy on Vercel
+## 📦 Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ✅ Dashboard
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-"# crud-task" 
+- Displays a list of products
+- Supports **sorting & filtering** with `@tanstack/react-table`
+
+### ✅ Authentication
+
+- Login & Logout using **NextAuth.js**
+- Protected routes (only authenticated users can access the dashboard)
+
+### ✅ Products CRUD Operations
+
+- **Create:** Add new products with a form
+- **Read:** View a paginated list of products
+- **Update:** Edit product details
+- **Delete:** Remove products from the database
+
+---
+
+## 🔗 Documentation
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [NextAuth.js Documentation](https://next-auth.js.org/)
+- [TanStack React Table](https://tanstack.com/table/v8/docs/guide/introduction)
+- [ShadCN UI](https://ui.shadcn.com/)
+
+
+
+
