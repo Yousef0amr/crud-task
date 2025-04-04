@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { LoaderCircle } from 'lucide-react'
 
 const loginForm = ({ props }: { props: React.PropsWithChildren<any> }) => {
     return (
@@ -29,8 +30,12 @@ const loginForm = ({ props }: { props: React.PropsWithChildren<any> }) => {
                             <p className="text-red-500">{props.errors.password?.message}</p>
                         </div>
 
-                        <Button type="submit" >
-                            Login
+                        <Button type="submit" className='cursor-pointer'>
+                            {
+                                props.loading ?
+                                    <LoaderCircle className='animate-spin' />
+                                    : <span>Login</span>
+                            }
                         </Button>
                     </div>
                 </form>

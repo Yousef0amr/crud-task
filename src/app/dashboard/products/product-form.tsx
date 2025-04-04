@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { productSchema } from "@/lib/zod"
 import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Category } from "./products-columns"
 
 
 export type ProductFormValues = z.infer<typeof productSchema>
@@ -23,11 +25,13 @@ export type ProductFormValues = z.infer<typeof productSchema>
 export function ProductForm({
     productData,
     handleOnSubmit,
-    handleClose
+    handleClose,
+    categories
 }: {
     productData: ProductFormValues | undefined,
     handleClose: () => void
-    handleOnSubmit: (data: ProductFormValues) => void
+    handleOnSubmit: (data: ProductFormValues) => void,
+    categories: Category[]
 }) {
     const form = useForm<ProductFormValues>({
         resolver: zodResolver(productSchema),
@@ -40,16 +44,16 @@ export function ProductForm({
     }
 
     return (
-        <div style={{ padding: '10px' }}>
+        <div style={{ padding: '20px' }}>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <FormField
                         control={form.control}
                         name="title"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Title</FormLabel>
-                                <FormControl>
+                                <FormControl style={{ padding: '10px' }}>
                                     <Input  {...field} />
                                 </FormControl>
 
@@ -63,7 +67,7 @@ export function ProductForm({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Price</FormLabel>
-                                <FormControl>
+                                <FormControl style={{ padding: '10px' }}>
                                     <Input type="number" {...field} />
                                 </FormControl>
 
@@ -77,7 +81,7 @@ export function ProductForm({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Description</FormLabel>
-                                <FormControl>
+                                <FormControl style={{ padding: '10px' }}>
                                     <Textarea {...field} />
                                 </FormControl>
 
@@ -89,12 +93,24 @@ export function ProductForm({
                         control={form.control}
                         name="categoryId"
                         render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Category ID</FormLabel>
-                                <FormControl>
-                                    <Input type="number"  {...field} />
+                            <FormItem className="w-full" >
+                                <FormLabel>Category</FormLabel>
+                                <FormControl className="w-full">
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                        <SelectTrigger className="w-full cursor-pointer" style={{ padding: '10px' }} >
+                                            <SelectValue placeholder="Select a category">
+                                                {categories.find(cat => cat.id === field.value)?.name}
+                                            </SelectValue>
+                                        </SelectTrigger>
+                                        <SelectContent className="w-full" style={{ padding: '10px' }}>
+                                            {categories.map((cat) => (
+                                                <SelectItem key={cat.id} value={cat.id.toString()}>
+                                                    {cat.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -107,8 +123,9 @@ export function ProductForm({
                                 <FormLabel>Images</FormLabel>
                                 <FormControl>
                                     <Input
+                                        style={{ padding: '10px' }}
                                         type="text"
-
+                                        placeholder="you can add  multiple images by add , between urls"
                                         {...field}
                                     />
                                 </FormControl>

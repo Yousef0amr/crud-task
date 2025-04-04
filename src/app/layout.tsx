@@ -28,14 +28,14 @@ export default function RootLayout({
 }>) {
   return (
 
-    <html lang="en">
+    <html lang="en" >
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Toaster position="bottom-center" />
         <QueryProvider >
           <NextAuthProvider>
-            <ThemeProvider attribute="class" defaultTheme="light" themes={["light", "dark"]} enableSystem disableTransitionOnChange >
-              {children}
-            </ThemeProvider>
+
+            {children}
+
           </NextAuthProvider>
         </QueryProvider>
       </body>

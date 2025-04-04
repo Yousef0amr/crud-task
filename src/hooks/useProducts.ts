@@ -1,4 +1,4 @@
-import { Product } from "@/app/dashboard/products/products-columns";
+import { Category, Product } from "@/app/dashboard/products/products-columns";
 import { useQuery, useMutation, UseQueryResult } from "@tanstack/react-query";
 import api from "@/lib/axiosConfig";
 import { useProductStore } from "@/store/product-store";
@@ -12,8 +12,16 @@ const fetchProducts = async (): Promise<Product[]> => {
     return res.data;
 };
 
+const fetchCategories = async (): Promise<Category[]> => {
+    const res = await api.get("/categories");
+    return res.data;
+};
+
 export const useProducts = (): UseQueryResult<Product[], Error> => {
     return useQuery({ queryKey: ["products"], queryFn: fetchProducts, staleTime: 60 * 60 * 1000 });
+};
+export const useCategories = (): UseQueryResult<Category[], Error> => {
+    return useQuery({ queryKey: ["categories"], queryFn: fetchCategories, staleTime: 60 * 60 * 1000 });
 };
 
 export const useAddProduct = () => {

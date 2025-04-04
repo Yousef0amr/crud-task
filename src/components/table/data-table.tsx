@@ -6,6 +6,10 @@ import {
     getCoreRowModel,
     useReactTable,
     getPaginationRowModel,
+    getSortedRowModel,
+    getFilteredRowModel,
+    SortingState,
+    ColumnFiltersState,
 } from "@tanstack/react-table"
 
 import {
@@ -16,8 +20,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { useState } from "react"
+import { Input } from "../ui/input"
+import { DataTablePagination } from "./data-table-pagination"
+import { DataTableColumnHeader } from "./data-table-column-header"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -28,24 +36,52 @@ export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [globalFilter, setGlobalFilter] = useState<string>("")
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            sorting,
+            columnFilters,
+            globalFilter,
+        },
+        onSortingChange: setSorting,
+        onColumnFiltersChange: setColumnFilters,
+        onGlobalFilterChange: setGlobalFilter,
     })
 
     return (
         <div className="rounded-lg border border-gray-200 shadow-md">
+            <div style={{ margin: '10px' }}>
+
+                <Input
+                    type="text"
+                    placeholder="Search..."
+                    value={globalFilter}
+                    onChange={(e) => setGlobalFilter(e.target.value)}
+                    className="mb-4 border rounded p-2 w-50"
+                    style={{ padding: '10px' }}
+                />
+
+            </div>
+
             <Table>
                 <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id} className="bg-gray-100">
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    {table.getHeaderGroups().map((headerGroup, index) => (
+                        <TableRow key={headerGroup.id + index}>
+                            {headerGroup.headers.map((header, index) => (
+
+                                <TableHead className="bg-gray-100" key={header.id}>
+                                    <DataTableColumnHeader column={header.column} title={flexRender(
+                                        header.column.columnDef.header,
+                                        header.getContext()
+                                    )} />
                                 </TableHead>
                             ))}
                         </TableRow>
@@ -73,24 +109,7 @@ export function DataTable<TData, TValue>({
             </Table>
 
             <div className="flex items-center justify-end space-x-2 gap-3 py-4" style={{ padding: '10px' }}>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-10"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-10"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    <ArrowRight className="mr-2 h-4 w-4" />
-                </Button>
+                <DataTablePagination table={table} />
             </div>
 
         </div>

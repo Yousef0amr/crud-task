@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button"
 import { ColumnDef } from "@tanstack/react-table"
-import { Delete, Edit } from "lucide-react"
+import { DeleteIcon, Edit } from "lucide-react"
 
-interface Category {
+export interface Category {
     id: string
     name: string,
     image: string,
@@ -37,11 +37,13 @@ export const productsColumns = (
     return [
         {
             accessorKey: "id",
+            enableSorting: true,
+            enableColumnFilter: true,
             header: () => (
-                <div className="text-center font-semibold text-gray-700" style={{ width: "100px" }}>ID</div>
+                <div className="text-center font-semibold text-gray-700" style={{ width: "50px" }}>ID</div>
             ),
             cell: ({ row }) => (
-                <div className="text-center text-gray-500 p-2" style={{ width: "100px" }}>
+                <div className="text-center text-gray-500 p-2" style={{ width: "50px" }}>
                     {row.getValue("id")}
                 </div>
             ),
@@ -49,40 +51,57 @@ export const productsColumns = (
         {
             accessorKey: "title",
             header: () => (
-                <div className="font-semibold p-2 text-center" style={{ width: "200px", padding: '10px' }}>Title</div>
+                <div className="font-semibold p-2 text-center" style={{ width: "50px", padding: '10px' }}>Title</div>
             ),
             cell: ({ row }) => (
-                <div className="font-semibold p-2 text-center" style={{ width: "200px", padding: '10px' }}>
+                <div className="font-semibold p-2 text-center" style={{ width: "150px", padding: '10px' }}>
                     {row.getValue("title")}
                 </div>
             ),
+            enableSorting: true,
+            enableColumnFilter: true,
         },
         {
             accessorKey: "price",
             header: () => (
-                <div className="text-center font-semibold p-2" style={{ width: "150px" }}>Price</div>
+                <div className="text-center font-semibold p-2" style={{ width: "50px" }}>Price</div>
             ),
             cell: ({ row }) => (
-                <div className="text-center font-bold p-2" style={{ width: "150px" }}>
+                <div className="text-center font-bold p-2" style={{ width: "50px" }}>
                     ${row.getValue("price")}
                 </div>
             ),
+            enableSorting: true,
+            enableColumnFilter: true,
+        },
+        {
+            accessorKey: "slug",
+            header: () => (
+                <div className="text-center font-semibold p-2" style={{ width: "50px" }}>Slug</div>
+            ),
+            cell: ({ row }) => (
+                <div className="text-center font-bold p-2" style={{ width: "150px" }}>
+                    ${row.getValue("slug")}
+                </div>
+            ),
+            enableSorting: true,
+            enableColumnFilter: true,
         },
         {
             id: "actions",
             header: () => (
-                <div className="font-semibold p-2 text-center" style={{ width: "250px" }}>Actions</div>
+                <div className="font-semibold p-2 text-center" style={{ width: "50px" }}>Actions</div>
             ),
             cell: ({ row }) => (
-                <div className="flex justify-center gap-2 p-2" style={{ width: "250px" }}>
-                    {/* <Button
+                <div className="flex justify-center gap-2 p-2" style={{ width: "50px" }}>
+                    <Button
                         onClick={() => handleView(row.original)}
                         variant="secondary"
                         className="cursor-pointer hover:text-green-500"
                         size="sm"
                     >
                         View
-                    </Button> */}
+                    </Button>
                     <Button
                         onClick={() => handleEdit(row.original)}
                         className="cursor-pointer hover:text-blue-500"
@@ -96,7 +115,7 @@ export const productsColumns = (
                         className="cursor-pointer hover:text-red-500"
                         variant={"ghost"}
                     >
-                        <Delete className="hover:text-red-500" />
+                        <DeleteIcon className="hover:text-red-500" />
                     </Button>
                 </div>
             ),

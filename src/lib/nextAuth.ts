@@ -1,6 +1,7 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import api from "./axiosConfig";
+import toast from "react-hot-toast";
 
 
 export const authOptions: AuthOptions = {
@@ -34,6 +35,7 @@ export const authOptions: AuthOptions = {
                             refresh_token: res.data.refresh_token,
                         };
                     }
+
                     return null;
                 } catch (error) {
                     return null;
