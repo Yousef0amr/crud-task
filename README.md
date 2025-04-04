@@ -63,6 +63,10 @@ This project uses **NextAuth.js** for authentication with JWT.
 - [TanStack React Table](https://tanstack.com/table/v8/docs/guide/introduction)
 - [ShadCN UI](https://ui.shadcn.com/)
 
+## for test
+email : admin@gmail.com
+password: admin123
+
 
 
 
