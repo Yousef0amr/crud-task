@@ -64,7 +64,7 @@ This project uses **NextAuth.js** for authentication with JWT.
 - [ShadCN UI](https://ui.shadcn.com/)
 
 ## for test dashboard
-email : admin@gmail.com
+email : admin@mail.com
 password: admin123
 
 
